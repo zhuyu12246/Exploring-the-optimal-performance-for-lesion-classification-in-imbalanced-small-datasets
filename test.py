@@ -8,6 +8,7 @@ from medmnist import RetinaMNIST
 
 from models.SimpleRetinaCNN.SimpleRetinaCNN import SimpleRetinaCNN
 from models.ViT_Tiny.ViT_Tiny import ViT_Tiny
+from models.CNN_Transformer.CNN_Transformer import CNN_Transformer
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
@@ -36,7 +37,7 @@ num_classes = int(test_dataset.labels.max() + 1)
 # --------------------------
 # Load Model
 # --------------------------
-model = ViT_Tiny(num_classes = 5).to(device)
+model = CNN_Transformer(num_classes=5).to(device)
 model.load_state_dict(torch.load("model.pth", map_location=device))
 model.eval()
 

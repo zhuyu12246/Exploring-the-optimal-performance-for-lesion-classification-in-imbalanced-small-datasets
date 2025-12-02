@@ -7,17 +7,18 @@ from medmnist import RetinaMNIST
 # 网络引入
 from models.SimpleRetinaCNN.SimpleRetinaCNN import SimpleRetinaCNN
 from models.ViT_Tiny.ViT_Tiny import ViT_Tiny
+from models.CNN_Transformer.CNN_Transformer import CNN_Transformer
 
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
 BATCH = 32
 LR = 1e-5
-EPOCHS = 50
+EPOCHS = 20
 
 
 transform_train = transforms.Compose([
-    transforms.Resize((224, 224)),
+    # transforms.Resize((224, 224)),
     transforms.RandomHorizontalFlip(),
     transforms.RandomVerticalFlip(),
     transforms.ColorJitter(brightness=0.2, contrast=0.2),
@@ -27,7 +28,7 @@ transform_train = transforms.Compose([
 ])
 
 transform_val = transforms.Compose([
-    transforms.Resize((224, 224)),
+    # transforms.Resize((224, 224)),
     transforms.ToTensor(),
     transforms.Normalize(mean=[0.5,0.5,0.5], std=[0.5,0.5,0.5])
 
@@ -42,7 +43,7 @@ val_loader   = DataLoader(val_dataset,   batch_size=BATCH, shuffle=False)
 
 
 # model
-model = ViT_Tiny(num_classes = 5).to(device)
+model = CNN_Transformer(num_classes=5).to(device)
 optimizer = torch.optim.Adam(model.parameters(), lr=LR, weight_decay=1e-4)
 criterion = nn.CrossEntropyLoss()
 train_losses = []
