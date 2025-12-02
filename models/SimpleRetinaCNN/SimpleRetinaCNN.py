@@ -7,7 +7,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-# 使用简单的CNN 网络不复杂可以防止一下过拟合
+# 使用简单的CNN 网络不复杂可以防止一下过拟合 训练超级快
 # 53% ~ 51.5 %
 
 

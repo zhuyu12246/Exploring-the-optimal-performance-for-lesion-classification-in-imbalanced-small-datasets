@@ -7,6 +7,7 @@ from torchvision import transforms
 from medmnist import RetinaMNIST
 
 from models.SimpleRetinaCNN.SimpleRetinaCNN import SimpleRetinaCNN
+from models.ViT_Tiny.ViT_Tiny import ViT_Tiny
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
@@ -14,6 +15,7 @@ device = "cuda" if torch.cuda.is_available() else "cpu"
 # Transforms
 # --------------------------
 transform = transforms.Compose([
+    transforms.Resize((224, 224)),
     transforms.ToTensor(),
     transforms.Normalize(mean=[0.5,0.5,0.5], std=[0.5,0.5,0.5])
 ])
@@ -34,7 +36,7 @@ num_classes = int(test_dataset.labels.max() + 1)
 # --------------------------
 # Load Model
 # --------------------------
-model = SimpleRetinaCNN(num_classes).to(device)
+model = ViT_Tiny(num_classes = 5).to(device)
 model.load_state_dict(torch.load("model.pth", map_location=device))
 model.eval()
 
